@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def approximate_value(arg: float, terms_count: int = 50, is_radians: bool = True) -> float:
+def approximate_value(arg: float, terms_count: int = 50) -> float:
     """
         A function that computes the value of cos(3x)^2
         using Teylor series.
@@ -45,33 +45,33 @@ def value_difference(arg: float, terms_count=50):
     return abs(approximate_value(arg, terms_count) - math.cos(3*arg)**2)
 
 
-def plot_graph_difference(terms_count=60):
+def plot_graph_difference(terms_count=50):
     """
         Draws a curve of a true cos(3x)^2 and it's approximation. Returns nothing.
     Args:
-        terms_count (int, optional): a count of terms in Teylor series. Defaults to 50. Defaults to 60.
+        terms_count (int, optional): a count of terms in Teylor series. Defaults to 50.
     """
-    x = np.linspace(-np.pi*10, np.pi*10, 1000)
-    y = np.cos(3 * x) ** 2
-    appr = [approximate_value(point, terms_count) for point in x]
+    arguments = np.linspace(-np.pi*10, np.pi*10, 1000)
+    values = np.cos(3 * arguments) ** 2
+    appr = [approximate_value(point, terms_count) for point in arguments]
 
     fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    ax.spines['left'].set_position('center')
-    ax.spines['bottom'].set_position('center')
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-    ax.xaxis.set_ticks_position('bottom')
-    ax.yaxis.set_ticks_position('left')
+    axes = fig.add_subplot(1, 1, 1)
+    axes.spines['left'].set_position('center')
+    axes.spines['bottom'].set_position('center')
+    axes.spines['right'].set_color('none')
+    axes.spines['top'].set_color('none')
+    axes.xaxis.set_ticks_position('bottom')
+    axes.yaxis.set_ticks_position('left')
 
-    ax.plot((1), (0), ls="", marker=">", ms=10, color="k",
-            transform=ax.get_yaxis_transform(), clip_on=False)
-    ax.plot((0), (1), ls="", marker="^", ms=10, color="k",
-            transform=ax.get_xaxis_transform(), clip_on=False)
+    axes.plot((1), (0), ls="", marker=">", ms=10, color="k",
+            transform=axes.get_yaxis_transform(), clip_on=False)
+    axes.plot((0), (1), ls="", marker="^", ms=10, color="k",
+            transform=axes.get_xaxis_transform(), clip_on=False)
 
     plt.axis([-30, 30, -10, 10])
-    plt.plot(x, y, 'b')
-    plt.plot(x, appr, 'r')
+    plt.plot(arguments, values, 'b')
+    plt.plot(arguments, appr, 'r')
 
     plt.show()
 
@@ -81,7 +81,7 @@ def epsilon_terms_count(args: list, epsilon: float = 10**(-9))->int:
     Returns a count of terms of a series needed to minimize difference between
     a true value and approximate one.
     Args:
-        args (list): a list of points, to which we will approximate our function. 
+        args (list): a list of points, to which we will approximate our function.
         epsilon (float, optional): a desired difference. Defaults to 10**(-9).
     Returns:
         int: a count of terms.
