@@ -94,3 +94,36 @@ def epsilon_terms_count(args: list, epsilon: float = 10**(-9))->int:
         while value_difference(arg, terms_count) >= epsilon:
             terms_count += 1
     return terms_count
+
+
+def main():
+    print('Enter an angle:')
+    while True:
+        try:
+            arg = float(input('>>> '))
+            break
+        except ValueError:
+            print('Pls, enter the correct value.')
+            continue
+
+    print('Enter the number of terms:')
+    while True:
+        try:
+            terms_count = int(input('>>> '))
+            break
+        except ValueError:
+            print('Pls, enter the correct value.')
+            continue
+    
+    print(f'The approximate value of a function is {approximate_value(arg, terms_count)}')
+    print(f'The difference between my function and built-in function is {value_difference(arg, terms_count)}')
+    print(f'A number of terms needed to minimize a difference between a true value and approximate one to')
+    print(f'epsilon=10^(-1): {epsilon_terms_count([arg], 10**(-1))}')
+    print(f'epsilon=10^(-2): {epsilon_terms_count([arg], 10**(-2))}')
+    print(f'epsilon=10^(-6): {epsilon_terms_count([arg], 10**(-6))}')
+    print(f'epsilon=10^(-9): {epsilon_terms_count([arg], 10**(-9))}')
+    print('Plotting...')
+    plot_graph_difference(terms_count)
+
+if __name__ == '__main__':
+    main()
